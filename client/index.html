@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space MMORPG - LittleJS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #gameCanvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #gameInfo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameInfo">
+        <h3>Space MMORPG</h3>
+        <p>LittleJS Engine</p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Load LittleJS engine -->
+    <script src="./node_modules/littlejsengine/dist/littlejs.js"></script>
+    
+    <!-- Load our game -->
+    <script src="./src/main.js"></script>
+</body>
+</html> 

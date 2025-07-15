@@ -1,0 +1,23 @@
+{
+  "name": "space-mmorpg-client",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js",
+    "lint:fix": "eslint src --ext .js --fix",
+    "format": "prettier --write src/**/*.js",
+    "format:check": "prettier --check src/**/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "littlejsengine": "^1.11.7"
+  }
+} 

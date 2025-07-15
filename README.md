@@ -1,8 +1,3 @@
-# game
-game
+# Game
 
-- like coke music
-
-- galaxies
-  - planets/stars/moons
-    - planet zones (ie. water zone)
+Learning to make a game with Claude

@@ -1,0 +1,35 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "globals": {
+    "engineInit": "readonly",
+    "vec2": "readonly",
+    "EngineObject": "readonly",
+    "keyIsDown": "readonly",
+    "keyWasPressed": "readonly",
+    "mousePos": "readonly",
+    "mouseWasPressed": "readonly",
+    "cameraPos": "writable",
+    "cameraScale": "writable",
+    "gravity": "writable",
+    "setShowSplashScreen": "readonly",
+    "drawRect": "readonly",
+    "drawTextScreen": "readonly",
+    "hsl": "readonly",
+    "mainCanvasSize": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "prefer-const": "error",
+    "no-var": "error"
+  }
+} 
