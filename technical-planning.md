@@ -1,14 +1,13 @@
-# Technical Planning
+# Web MMORPG Technical Plan
 
-MMORPG Game Project
+Technical planning for the browser-based MMORPG Game.
 
 ## Technology Stack
 
 ### Frontend (Client)
 
 - **TypeScript** - Type-safe JavaScript for better development experience
-- **HTML5 Canvas** - 2D graphics rendering
-- **WebGL** - 3D graphics (if needed later)
+- **LittleJS Engine** - [Little JS Game Engine](https://github.com/KilledByAPixel/LittleJS)
 - **WebSockets** - Real-time communication
 - **Web Audio API** - Sound effects and music
 - **Local Storage/IndexedDB** - Client-side caching
@@ -27,7 +26,7 @@ MMORPG Game Project
 - **Vite** - Fast build tool and dev server
 - **ESLint + Prettier** - Code quality and formatting
 - **Jest** - Testing framework
-- **Docker** - Containerization for deployment
+- **Docker (can come later)** - Containerization for deployment
 
 ## Project Architecture
 
@@ -75,7 +74,7 @@ game/
 
 ### 3. Combat System
 
-- Turn-based or real-time combat
+- Turn-based combat
 - Damage calculation
 - Status effects
 - Loot distribution
@@ -96,53 +95,30 @@ game/
 
 ## Development Phases
 
-### Phase 1: Foundation (2-3 weeks)
+### Phase 1: Foundation
 
 - Set up development environment
 - Create basic project structure
 - Implement WebSocket connection
 - Basic player movement
 
-### Phase 2: Core Gameplay (4-6 weeks)
+### Phase 2: Core Gameplay
 
 - Character system
 - Basic combat
 - Simple world representation
 - Player interactions
 
-### Phase 3: Multiplayer Features (3-4 weeks)
+### Phase 3: Multiplayer Features
 
 - Multiple players in same world
 - Real-time synchronization
 - Basic chat system
 - Player persistence
 
-### Phase 4: Polish & Features (4-6 weeks)
+### Phase 4: Polish & Features
 
 - UI/UX improvements
 - Sound effects and music
 - Additional game systems
 - Performance optimization
-
-## Getting Started
-
-1. **Learn TypeScript**: Start with basic TypeScript concepts
-2. **Study Game Development**: Learn about game loops, state management
-3. **Network Programming**: Understand WebSockets and real-time communication
-4. **Database Design**: Learn about data modeling for games
-
-## Learning Resources
-
-- **TypeScript**: Official docs and tutorials
-- **Game Development**: "Game Programming Patterns" by Robert Nystrom
-- **WebSockets**: Socket.io documentation
-- **Node.js**: Official Node.js guides
-- **MongoDB**: MongoDB University courses
-
-## Next Steps
-
-1. Set up the development environment
-2. Create the basic project structure
-3. Implement a simple "Hello World" game
-4. Add basic player movement
-5. Implement WebSocket communication
