@@ -32,12 +32,12 @@ Technical planning for the browser-based MMORPG Game.
 
 ```
 game/
-├── client/                 # Frontend game client
+├── client/                # Frontend game client
 │   ├── src/
-│   │   ├── components/     # UI components
+│   │   ├── components/    # UI components
 │   │   ├── game/          # Game logic
 │   │   ├── network/       # WebSocket communication
-│   │   ├── assets/        # Images, sounds, etc.
+│   │   ├── assets/        # Sprites, Tiles, Sounds, Music, etc.
 │   │   └── utils/         # Utility functions
 │   ├── public/            # Static assets
 │   └── package.json
@@ -51,6 +51,7 @@ game/
 │   └── package.json
 ├── shared/                # Shared types and constants
 │   └── src/
+|   |   ├── strings/       # Game Strings (all game/menu text for i18n)
 │       ├── types/         # TypeScript interfaces
 │       └── constants/     # Game constants
 └── docs/                  # Documentation

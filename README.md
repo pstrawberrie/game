@@ -1,3 +1,3 @@
 # Game
 
-Learning to make a game
+Making a game with that wily AI
