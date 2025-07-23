@@ -16,7 +16,7 @@ This guide combines best practices and recommendations for creating **character 
 ### ✅ Ideal Sprite Size
 
 - Minimum Target Resolution: **1024×768**
-- Recommended size: **64×96** or **128×128** per frame
+- Recommended size: **64×96**
 - Match sprite size to tile scale (e.g. 64×32 tiles)
 - Avoid overly large sprites for performance reasons
 

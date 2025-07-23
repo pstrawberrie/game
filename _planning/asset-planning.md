@@ -1,13 +1,13 @@
 # Asset Planning
 
-The game is a 2d isometric MMORPG with turn-based combat. The game engine being used is [LittleJS](https://github.com/KilledByAPixel/LittleJS). I need help creating the assets, so we will be using AI to generate the assets for our MVP.
+The game is a 2.5d isometric MMORPG with turn-based combat. The game engine being used is [LittleJS](https://github.com/KilledByAPixel/LittleJS). I need help creating the assets, so we will be using AI to generate the assets for our MVP.
 
 ## Asset Creation
 
 Base Rules for AI asset generation:
 
 - **The art style must be consistent** (content can vary wildly, but style should be consistent)
-  - For inspiration,
+  - For art style direction, see the file `ro-sprites-example.png`
 - Player Character sprites, Clothing sprites, and Weapon sprites need to have consistent indexed coloring: they will be using WebGL shaders for dynamic sprite coloring.
 - All asset types should be standardized according to the most efficient sprite loading method available in LittleJS Engine (ie. player character sprite actions should be 6 frames, row x is walk N, row x is walk NE, etc.)
 
@@ -120,6 +120,6 @@ First, please read the attached markdown file `chatgpt-littlejs-sprite-tile-guid
 
 After that, please read this markdown document to gather requirements. Ignore any children requirements which are nested within parent headers that have the text "(AI IGNORE)". Ignore any single-line requirements which end with the text "(AI IGNORE)". Using this document's requirements, please generate the following assets:
 
-- 1 Player Character Sprite: human male
-- 1 NPC Sprite (skeleton)
-- 1 Tile Sprite (grass)
+- 1 Player Character Sprite: human male with #00ff00 skin, #ff00ff hair, and #0000ff shorts
+- 1 NPC Sprite: skeleton with #00ff00 skin (bones)
+- 1 Tile Sprite: a basic grass tile with #2f682fff color grass base, #469c46ff color grass highlights, #442d13ff color dirt, and #5c3e1cff color dirt highlights
