@@ -1,0 +1,20 @@
+{
+  "name": "web-mmorpg-game",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "concurrently \"npm:dev --workspace=client\" \"npm:dev --workspace=server\"",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --write .",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "concurrently": "^8.2.2"
+  }
+}
