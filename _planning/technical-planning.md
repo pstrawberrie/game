@@ -7,7 +7,7 @@ Technical planning for the browser-based MMORPG Game.
 ### Frontend (Client)
 
 - **TypeScript** - Type-safe JavaScript for better development experience
-- **LittleJS Engine** - [Little JS Game Engine](https://github.com/KilledByAPixel/LittleJS)
+- **PixiJS Engine** - [PixiJS](https://pixijs.com/)
 - **WebSockets** - Real-time communication
 - **Web Audio API** - Sound effects and music
 - **Local Storage/IndexedDB** - Client-side caching
@@ -26,7 +26,7 @@ Technical planning for the browser-based MMORPG Game.
 - **Vite** - Fast build tool and dev server
 - **ESLint + Prettier** - Code quality and formatting
 - **Jest** - Testing framework
-- **Docker (can come later)** - Containerization for deployment
+- **Docker** - Containerization for deployment
 
 ## Project Architecture
 
@@ -51,7 +51,7 @@ game/
 │   └── package.json
 ├── shared/                # Shared types and constants
 │   └── src/
-|   |   ├── strings/       # Game Strings (all game/menu text for i18n)
+|   |   ├── strings/       # Game Strings (all text for i18n)
 │       ├── types/         # TypeScript interfaces
 │       └── constants/     # Game constants
 └── docs/                  # Documentation

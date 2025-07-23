@@ -213,7 +213,7 @@ Skill system combines several different styles from popular games. Skills can be
 ## Taming
 
 - Players can acquire skills to tame creatures (details tbd)
-- Players can sell tamed creatures
+- Players can trade tamed creatures
 
 ## Mounting
 
