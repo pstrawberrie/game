@@ -1,5 +1,7 @@
 // Splash scene placeholder using LittleJS helpers
 
+import { anyKeyPressed } from '../ui/common.js';
+
 export class SplashScene {
   constructor(onDone) {
     this.onDone = onDone;
@@ -12,7 +14,8 @@ export class SplashScene {
   update() {
     const dt = (typeof timeDelta === 'number' && timeDelta > 0) ? timeDelta : 1/60;
     this.time += dt;
-    if (!this._doneTriggered && (mouseWasPressed(0) || this.time >= this.duration)) {
+    const anyKey = anyKeyPressed();
+    if (!this._doneTriggered && (mouseWasPressed(0) || anyKey || this.time >= this.duration)) {
       this._doneTriggered = true;
       if (this.onDone) this.onDone({ disableEffects: this.disableEffects });
     }

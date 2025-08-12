@@ -37,6 +37,15 @@ export function isMouseDown() {
   return false;
 }
 
+export function anyKeyPressed() {
+  if (typeof keyWasPressed === 'function') {
+    for (let k = 0; k < 256; k++) {
+      try { if (keyWasPressed(k)) return true; } catch {}
+    }
+  }
+  return false;
+}
+
 // Input consumption to respect layering (topmost handles input)
 let _clickConsumed = false;
 let _keyConsumed = false;
