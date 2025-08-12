@@ -15,6 +15,7 @@ export class HowToPlayScene {
       uiClearAnyKeyFlag();
       return;
     }
+    // Update any background timers if needed
     const mouse = typeof mouseWasPressed === 'function' && mouseWasPressed(0);
     const anyKey = anyKeyPressed();
     if (mouse || anyKey) {
@@ -25,6 +26,7 @@ export class HowToPlayScene {
   render() {}
 
   renderPost() {
+    // Cozy gradient backdrop to match splash
     const center = mainCanvasSize.scale(0.5);
     drawTextScreen('How to Play', center.add(vec2(0, -80)), 28, new Color(1, 1, 1, 1));
     drawTextScreen(
@@ -46,7 +48,7 @@ export class HowToPlayScene {
       new Color(0.8, 0.8, 0.8, 1)
     );
     drawTextScreen(
-      'Click or press Enter/Space to continue',
+      'Click or press any key to continue',
       center.add(vec2(0, 60)),
       16,
       new Color(1, 1, 1, 1)
