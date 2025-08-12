@@ -12,9 +12,12 @@ export class SplashScene {
   }
 
   update() {
-    const dt = (typeof timeDelta === 'number' && timeDelta > 0) ? timeDelta : 1/60;
+    const dt = typeof timeDelta === 'number' && timeDelta > 0 ? timeDelta : 1 / 60;
     this.time += dt;
-    if (uiIsInputLocked()) { uiClearAnyKeyFlag(); return; }
+    if (uiIsInputLocked()) {
+      uiClearAnyKeyFlag();
+      return;
+    }
     if (!this._doneTriggered && this.time >= this.duration) {
       this._doneTriggered = true;
       if (this.onDone) this.onDone({ disableEffects: this.disableEffects });
@@ -26,11 +29,14 @@ export class SplashScene {
   renderPost() {
     // dim background
     if (typeof drawRectScreen === 'function') {
-      drawRectScreen(mainCanvasSize.scale(.5), mainCanvasSize, new Color(0,0,0,1));
+      drawRectScreen(mainCanvasSize.scale(0.5), mainCanvasSize, new Color(0, 0, 0, 1));
     }
     // centered text in pixels
-    drawTextScreen('LittleJS Starter', mainCanvasSize.scale(.5).add(vec2(0, -40)), 32, new Color(1,1,1,1));
+    drawTextScreen(
+      'LittleJS Starter',
+      mainCanvasSize.scale(0.5).add(vec2(0, -40)),
+      32,
+      new Color(1, 1, 1, 1)
+    );
   }
 }
-
-

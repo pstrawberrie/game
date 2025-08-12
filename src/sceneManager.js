@@ -37,16 +37,24 @@ class FadeEffect {
     const duration = this.phase === 'in' ? this.inDuration : this.outDuration;
     const raw = this.elapsed / (duration > 0 ? duration : 0.0001);
     const t = raw < 0 ? 0 : raw > 1 ? 1 : raw;
-    const alpha = this.phase === 'in' ? (1 - t) : t;
+    const alpha = this.phase === 'in' ? 1 - t : t;
 
-    // Draw a fullscreen overlay on the overlay canvas
-    if (typeof overlayContext !== 'undefined' && overlayContext && typeof overlayCanvas !== 'undefined' && overlayCanvas) {
-      const r = Math.round(this.baseColor.r * 255) || 0;
-      const g = Math.round(this.baseColor.g * 255) || 0;
-      const b = Math.round(this.baseColor.b * 255) || 0;
+    // Prefer LittleJS helper for screen-space fill when available
+    const color = new Color(this.baseColor.r, this.baseColor.g, this.baseColor.b, alpha);
+    if (typeof drawRectScreen === 'function' && typeof mainCanvasSize !== 'undefined') {
+      drawRectScreen(mainCanvasSize.scale(0.5), mainCanvasSize, color);
+      return;
+    }
+    // Fallback: draw a fullscreen overlay on the overlay canvas
+    if (
+      typeof overlayContext !== 'undefined' &&
+      overlayContext &&
+      typeof overlayCanvas !== 'undefined' &&
+      overlayCanvas
+    ) {
       overlayContext.save();
       overlayContext.globalCompositeOperation = 'source-over';
-      overlayContext.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      overlayContext.fillStyle = `rgba(${Math.round(color.r * 255) || 0},${Math.round(color.g * 255) || 0},${Math.round(color.b * 255) || 0},${color.a || alpha})`;
       overlayContext.fillRect(0, 0, overlayCanvas.width, overlayCanvas.height);
       overlayContext.restore();
     }
@@ -84,6 +92,7 @@ class SceneManager {
     // If no current scene, start with an intro (fade-in only)
     if (!this.currentScene) {
       this.currentScene = nextScene;
+      if (this.currentScene && this.currentScene.start) this.currentScene.start();
       if (effectsEnabled) {
         this.transition = this.createTransition(null, nextScene, 'in', effectName, effectOptions);
       }
@@ -91,13 +100,22 @@ class SceneManager {
     }
 
     if (!effectsEnabled) {
+      // end previous scene immediately and start the new one
+      if (this.currentScene && this.currentScene.end) this.currentScene.end();
       this.currentScene = nextScene;
+      if (this.currentScene && this.currentScene.start) this.currentScene.start();
       this.transition = null;
       return;
     }
 
     // Start fade-out of current, then swap and fade-in new
-    this.transition = this.createTransition(this.currentScene, nextScene, 'out', effectName, effectOptions);
+    this.transition = this.createTransition(
+      this.currentScene,
+      nextScene,
+      'out',
+      effectName,
+      effectOptions
+    );
   }
 
   createTransition(fromScene, toScene, startPhase, effectName, effectOptions) {
@@ -114,12 +132,15 @@ class SceneManager {
 
     // Update transition if any
     if (this.transition) {
-      const dt = (typeof timeDelta === 'number' && timeDelta > 0) ? timeDelta : 1/60;
+      const dt = typeof timeDelta === 'number' && timeDelta > 0 ? timeDelta : 1 / 60;
       const phaseDone = this.transition.effect.update(dt);
       if (phaseDone) {
         if (this.transition.phase === 'out') {
           // switch scene and start fade-in
+          if (this.transition.fromScene && this.transition.fromScene.end)
+            this.transition.fromScene.end();
           this.currentScene = this.transition.toScene;
+          if (this.currentScene && this.currentScene.start) this.currentScene.start();
           this.transition.effect.begin('in');
           this.transition.phase = 'in';
         } else {
@@ -152,5 +173,3 @@ export function changeScene(nextScene, options) {
 export function isTransitionActive() {
   return !!sceneManager.transition;
 }
-
-

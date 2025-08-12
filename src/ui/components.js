@@ -1,4 +1,18 @@
-import { getCanvasSize, getMouseScreen, isMousePressed, isKeyPressed, isMouseDown, rectFromCenter, rectContains, uiFillRect, uiStrokeRect, uiDrawTextCentered, uiTryConsumeClick, uiTryConsumeKeys, uiIsInputLocked } from './common.js';
+import {
+  getCanvasSize,
+  getMouseScreen,
+  isMousePressed,
+  isKeyPressed,
+  isMouseDown,
+  rectFromCenter,
+  rectContains,
+  uiFillRect,
+  uiStrokeRect,
+  uiDrawTextCentered,
+  uiTryConsumeClick,
+  uiTryConsumeKeys,
+  uiIsInputLocked,
+} from './common.js';
 
 export class UIButton {
   constructor({ center, size = vec2(240, 56), label = 'Button', onClick, hotkeys = [] }) {
@@ -11,9 +25,13 @@ export class UIButton {
     this.enabled = true;
   }
 
-  getInputPriority() { return 0; }
+  getInputPriority() {
+    return 0;
+  }
 
-  get rect() { return rectFromCenter(this.center, this.size); }
+  get rect() {
+    return rectFromCenter(this.center, this.size);
+  }
 
   update() {
     if (uiIsInputLocked()) return;
@@ -30,10 +48,14 @@ export class UIButton {
 
   renderPost() {
     const rect = this.rect;
-    const bg = this.enabled ? (this.hover ? 'rgba(60,120,255,0.95)' : 'rgba(40,90,200,0.95)') : 'rgba(60,60,60,0.8)';
+    const bg = this.enabled
+      ? this.hover
+        ? 'rgba(60,120,255,0.95)'
+        : 'rgba(40,90,200,0.95)'
+      : 'rgba(60,60,60,0.8)';
     uiFillRect(rect, bg);
     uiStrokeRect(rect, 'rgba(255,255,255,0.15)', 2);
-    uiDrawTextCentered(this.label, this.center.add(vec2(0, -8)), 20, new Color(1,1,1,1));
+    uiDrawTextCentered(this.label, this.center.add(vec2(0, -8)), 20, new Color(1, 1, 1, 1));
   }
 
   getRenderLayers() {
@@ -51,9 +73,13 @@ export class UICheckbox {
     this.hover = false;
   }
 
-  getInputPriority() { return 0; }
+  getInputPriority() {
+    return 0;
+  }
 
-  get boxRect() { return rectFromCenter(this.center, this.size); }
+  get boxRect() {
+    return rectFromCenter(this.center, this.size);
+  }
 
   update() {
     if (uiIsInputLocked()) return;
@@ -70,9 +96,12 @@ export class UICheckbox {
     uiFillRect(rect, 'rgba(20,20,20,0.9)');
     uiStrokeRect(rect, this.hover ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.4)', 2);
     if (this.checked) {
-      uiFillRect({ x: rect.x + 4, y: rect.y + 4, w: rect.w - 8, h: rect.h - 8 }, 'rgba(90,190,60,0.9)');
+      uiFillRect(
+        { x: rect.x + 4, y: rect.y + 4, w: rect.w - 8, h: rect.h - 8 },
+        'rgba(90,190,60,0.9)'
+      );
     }
-    uiDrawTextCentered(this.label, this.center.add(vec2(90, -4)), 16, new Color(1,1,1,1));
+    uiDrawTextCentered(this.label, this.center.add(vec2(90, -4)), 16, new Color(1, 1, 1, 1));
   }
 
   getRenderLayers() {
@@ -85,16 +114,20 @@ export class UISelect {
     this.center = center;
     this.width = width;
     this.options = options;
-    this.value = value ?? (options.length ? options[0].value ?? options[0] : null);
+    this.value = value ?? (options.length ? (options[0].value ?? options[0]) : null);
     this.onChange = onChange;
     this.open = false;
     this.hover = false;
     this.itemHeight = 28;
   }
 
-  get rect() { return rectFromCenter(this.center, vec2(this.width, 40)); }
+  get rect() {
+    return rectFromCenter(this.center, vec2(this.width, 40));
+  }
 
-  getInputPriority() { return this.open ? 100 : 0; }
+  getInputPriority() {
+    return this.open ? 100 : 0;
+  }
 
   update() {
     if (uiIsInputLocked()) return;
@@ -104,10 +137,20 @@ export class UISelect {
     // If open, first check option clicks so selection wins over close
     if (this.open) {
       const topLeft = vec2(this.rect.x, this.rect.y + this.rect.h);
-      const menuRect = { x: topLeft.x, y: topLeft.y, w: this.rect.w, h: this.options.length * this.itemHeight };
+      const menuRect = {
+        x: topLeft.x,
+        y: topLeft.y,
+        w: this.rect.w,
+        h: this.options.length * this.itemHeight,
+      };
       if (isMousePressed()) {
         const idx = Math.floor((mouse.y - topLeft.y) / this.itemHeight);
-        const rowRect = { x: topLeft.x, y: topLeft.y + idx*this.itemHeight, w: this.rect.w, h: this.itemHeight };
+        const rowRect = {
+          x: topLeft.x,
+          y: topLeft.y + idx * this.itemHeight,
+          w: this.rect.w,
+          h: this.itemHeight,
+        };
         if (idx >= 0 && idx < this.options.length && uiTryConsumeClick(rowRect)) {
           const chosen = this.options[idx];
           this.value = chosen.value ?? chosen;
@@ -119,7 +162,12 @@ export class UISelect {
       // Close when clicking outside both control and menu
       if (isMousePressed()) {
         const outsideControl = !rectContains(this.rect, mouse);
-        const outsideMenu = !(mouse.x >= menuRect.x && mouse.x <= menuRect.x + menuRect.w && mouse.y >= menuRect.y && mouse.y <= menuRect.y + menuRect.h);
+        const outsideMenu = !(
+          mouse.x >= menuRect.x &&
+          mouse.x <= menuRect.x + menuRect.w &&
+          mouse.y >= menuRect.y &&
+          mouse.y <= menuRect.y + menuRect.h
+        );
         if (outsideControl && outsideMenu) {
           this.open = false;
         }
@@ -137,23 +185,42 @@ export class UISelect {
     uiFillRect(rect, 'rgba(20,20,20,0.9)');
     uiStrokeRect(rect, this.hover ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.4)', 2);
     const text = this._displayText();
-    uiDrawTextCentered(text, this.center.add(vec2(0,-6)), 16, new Color(1,1,1,1));
+    uiDrawTextCentered(text, this.center.add(vec2(0, -6)), 16, new Color(1, 1, 1, 1));
   }
 
   renderDropdown() {
     const rect = this.rect;
     const topLeft = vec2(rect.x, rect.y + rect.h);
-    const menuRect = { x: topLeft.x, y: topLeft.y, w: rect.w, h: this.options.length * this.itemHeight };
+    const menuRect = {
+      x: topLeft.x,
+      y: topLeft.y,
+      w: rect.w,
+      h: this.options.length * this.itemHeight,
+    };
     uiFillRect(menuRect, 'rgba(30,30,30,0.95)');
     uiStrokeRect(menuRect, 'rgba(255,255,255,0.2)', 1);
     for (let i = 0; i < this.options.length; i++) {
       const item = this.options[i];
-      const rowRect = { x: topLeft.x, y: topLeft.y + i * this.itemHeight, w: rect.w, h: this.itemHeight };
+      const rowRect = {
+        x: topLeft.x,
+        y: topLeft.y + i * this.itemHeight,
+        w: rect.w,
+        h: this.itemHeight,
+      };
       // highlight on hover
       const mouse = getMouseScreen();
-      const isHover = mouse.y >= rowRect.y && mouse.y <= rowRect.y + rowRect.h && mouse.x >= rowRect.x && mouse.x <= rowRect.x + rowRect.w;
+      const isHover =
+        mouse.y >= rowRect.y &&
+        mouse.y <= rowRect.y + rowRect.h &&
+        mouse.x >= rowRect.x &&
+        mouse.x <= rowRect.x + rowRect.w;
       if (isHover) uiFillRect(rowRect, 'rgba(255,255,255,0.06)');
-      uiDrawTextCentered(String(item.label ?? item), vec2(rowRect.x + rowRect.w/2, rowRect.y + rowRect.h/2 - 6), 16, new Color(1,1,1,1));
+      uiDrawTextCentered(
+        String(item.label ?? item),
+        vec2(rowRect.x + rowRect.w / 2, rowRect.y + rowRect.h / 2 - 6),
+        16,
+        new Color(1, 1, 1, 1)
+      );
     }
   }
 
@@ -174,7 +241,9 @@ export class UISelect {
 }
 
 export class UISlider {
-  getInputPriority() { return 0; }
+  getInputPriority() {
+    return 0;
+  }
   constructor({ center, width = 280, value = 0.5, onChange }) {
     this.center = center;
     this.width = width;
@@ -184,7 +253,9 @@ export class UISlider {
     this.dragging = false;
   }
 
-  get rect() { return rectFromCenter(this.center, vec2(this.width, this.height)); }
+  get rect() {
+    return rectFromCenter(this.center, vec2(this.width, this.height));
+  }
 
   update() {
     if (uiIsInputLocked()) return;
@@ -220,5 +291,3 @@ export class UISlider {
     return [{ z: 0, draw: () => this.renderPost() }];
   }
 }
-
-

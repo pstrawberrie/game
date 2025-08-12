@@ -12,8 +12,6 @@ export class GameScene {
   render() {}
 
   renderPost() {
-    drawTextScreen('Main Game', mainCanvasSize.scale(.5), 24);
+    drawTextScreen('Main Game', mainCanvasSize.scale(0.5), 24);
   }
 }
-
-

@@ -23,7 +23,9 @@ export function isMousePressed() {
 }
 
 export function isKeyPressed(key) {
-  return typeof keyWasPressed === 'function' && typeof key !== 'undefined' ? keyWasPressed(key) : false;
+  return typeof keyWasPressed === 'function' && typeof key !== 'undefined'
+    ? keyWasPressed(key)
+    : false;
 }
 
 export function isMouseDown() {
@@ -46,7 +48,9 @@ export function anyKeyPressed() {
   // Fallback to engine keys if available
   if (typeof keyWasPressed === 'function') {
     for (let k = 0; k < 256; k++) {
-      try { if (keyWasPressed(k)) return true; } catch {}
+      try {
+        if (keyWasPressed(k)) return true;
+      } catch {}
     }
   }
   return false;
@@ -60,7 +64,9 @@ function bindDomKeyListenerOnce() {
   if (gListenersBound) return;
   gListenersBound = true;
   try {
-    window.addEventListener('keydown', () => { gAnyKeyPressedFlag = true; });
+    window.addEventListener('keydown', () => {
+      gAnyKeyPressedFlag = true;
+    });
   } catch {}
 }
 
@@ -129,16 +135,14 @@ export function uiStrokeRect(rect, strokeStyle, lineWidth = 1) {
   ctx.restore();
 }
 
-export function uiDrawTextCentered(text, rectCenter, sizePx, color = new Color(1,1,1,1)) {
+export function uiDrawTextCentered(text, rectCenter, sizePx, color = new Color(1, 1, 1, 1)) {
   drawTextScreen(text, rectCenter, sizePx, color);
 }
 
 export function rectFromCenter(center, size) {
-  return { x: center.x - size.x/2, y: center.y - size.y/2, w: size.x, h: size.y };
+  return { x: center.x - size.x / 2, y: center.y - size.y / 2, w: size.x, h: size.y };
 }
 
 export function rectContains(rect, p) {
   return p.x >= rect.x && p.x <= rect.x + rect.w && p.y >= rect.y && p.y <= rect.y + rect.h;
 }
-
-

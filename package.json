@@ -1,0 +1,20 @@
+{
+  "name": "littlejs-game",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "serve": "http-server -p 8080 -c-1 -o",
+    "dev": "live-server --port=8080 --no-css-inject --watch=src,index.html --open=index.html"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2",
+    "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "littlejsengine": "^1.11.10"
+  }
+}
