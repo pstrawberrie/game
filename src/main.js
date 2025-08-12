@@ -21,6 +21,32 @@ try {
   /* ignore if not available */
 }
 
+// Map WASD to arrow directions (LittleJS engine setting)
+try {
+  inputWASDEmulateDirection = true;
+} catch {}
+
+// Improve key input reliability: ensure the LittleJS canvas can receive focus
+try {
+  const focusCanvas = () => {
+    try {
+      if (typeof mainCanvas !== 'undefined' && mainCanvas) {
+        if (mainCanvas.tabIndex == null) mainCanvas.tabIndex = 0;
+        mainCanvas.focus();
+      }
+    } catch {}
+  };
+  // Focus after pointer interaction and shortly after init
+  window.addEventListener('pointerdown', focusCanvas);
+  setTimeout(focusCanvas, 100);
+  // Temporary debug: log key events reaching the window
+  window.addEventListener('keydown', (e) => {
+    if (typeof DEBUG !== 'undefined' ? DEBUG : true) {
+      console.debug('[keys] down', e.code, e.key, e.keyCode);
+    }
+  });
+} catch {}
+
 // Improve key input reliability: ensure document can receive focus
 try {
   if (document && document.body) {
