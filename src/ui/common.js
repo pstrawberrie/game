@@ -38,6 +38,12 @@ export function isMouseDown() {
 }
 
 export function anyKeyPressed() {
+  // Prefer DOM event fallback for "any key"
+  if (gAnyKeyPressedFlag) {
+    gAnyKeyPressedFlag = false;
+    return true;
+  }
+  // Fallback to engine keys if available
   if (typeof keyWasPressed === 'function') {
     for (let k = 0; k < 256; k++) {
       try { if (keyWasPressed(k)) return true; } catch {}
@@ -46,9 +52,28 @@ export function anyKeyPressed() {
   return false;
 }
 
+// --- DOM key fallback for any-key detection ---
+let gListenersBound = false;
+let gAnyKeyPressedFlag = false;
+
+function bindDomKeyListenerOnce() {
+  if (gListenersBound) return;
+  gListenersBound = true;
+  try {
+    window.addEventListener('keydown', () => { gAnyKeyPressedFlag = true; });
+  } catch {}
+}
+
+bindDomKeyListenerOnce();
+
+export function uiClearAnyKeyFlag() {
+  gAnyKeyPressedFlag = false;
+}
+
 // Input consumption to respect layering (topmost handles input)
 let _clickConsumed = false;
 let _keyConsumed = false;
+let _inputLocked = false;
 
 export function uiBeginFrame() {
   _clickConsumed = false;
@@ -75,6 +100,14 @@ export function uiTryConsumeKeys(keys) {
     }
   }
   return false;
+}
+
+export function uiSetInputLocked(locked) {
+  _inputLocked = !!locked;
+}
+
+export function uiIsInputLocked() {
+  return _inputLocked;
 }
 
 export function uiFillRect(rect, fillStyle) {

@@ -1,6 +1,6 @@
 // How To Play scene – waits for a click or keypress before continuing
 
-import { anyKeyPressed } from '../ui/common.js';
+import { anyKeyPressed, uiIsInputLocked, uiClearAnyKeyFlag } from '../ui/common.js';
 
 export class HowToPlayScene {
   constructor(onDone) {
@@ -11,6 +11,7 @@ export class HowToPlayScene {
   update() {
     // Begin a UI input frame so layered input is consistent
     if (typeof uiBeginFrame === 'function') uiBeginFrame();
+    if (uiIsInputLocked()) { uiClearAnyKeyFlag(); return; }
     const mouse = typeof mouseWasPressed === 'function' && mouseWasPressed(0);
     const anyKey = anyKeyPressed();
     if (mouse || anyKey) {

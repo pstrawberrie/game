@@ -1,6 +1,6 @@
 // Splash scene placeholder using LittleJS helpers
 
-import { anyKeyPressed } from '../ui/common.js';
+import { anyKeyPressed, uiIsInputLocked, uiClearAnyKeyFlag } from '../ui/common.js';
 
 export class SplashScene {
   constructor(onDone) {
@@ -14,8 +14,8 @@ export class SplashScene {
   update() {
     const dt = (typeof timeDelta === 'number' && timeDelta > 0) ? timeDelta : 1/60;
     this.time += dt;
-    const anyKey = anyKeyPressed();
-    if (!this._doneTriggered && (mouseWasPressed(0) || anyKey || this.time >= this.duration)) {
+    if (uiIsInputLocked()) { uiClearAnyKeyFlag(); return; }
+    if (!this._doneTriggered && this.time >= this.duration) {
       this._doneTriggered = true;
       if (this.onDone) this.onDone({ disableEffects: this.disableEffects });
     }
@@ -30,7 +30,6 @@ export class SplashScene {
     }
     // centered text in pixels
     drawTextScreen('LittleJS Starter', mainCanvasSize.scale(.5).add(vec2(0, -40)), 32, new Color(1,1,1,1));
-    drawTextScreen('Click to start', mainCanvasSize.scale(.5).add(vec2(0, 10)), 16, new Color(.8,.8,.8,1));
   }
 }
 

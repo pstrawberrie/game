@@ -149,4 +149,8 @@ export function changeScene(nextScene, options) {
   sceneManager.changeScene(nextScene, options);
 }
 
+export function isTransitionActive() {
+  return !!sceneManager.transition;
+}
+
 

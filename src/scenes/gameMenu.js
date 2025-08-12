@@ -82,7 +82,6 @@ export class GameMenuScene {
       const layers = c.getRenderLayers ? c.getRenderLayers() : [];
       for (const layer of layers) if (layer.z > 50) layer.draw();
     }
-    uiDrawTextCentered('(Enter/Space also works)', center.add(vec2(0, 150)), 14, new Color(.8,.8,.8,1));
   }
 }
 

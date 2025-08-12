@@ -1,4 +1,4 @@
-import { getCanvasSize, getMouseScreen, isMousePressed, isKeyPressed, isMouseDown, rectFromCenter, rectContains, uiFillRect, uiStrokeRect, uiDrawTextCentered, uiTryConsumeClick, uiTryConsumeKeys } from './common.js';
+import { getCanvasSize, getMouseScreen, isMousePressed, isKeyPressed, isMouseDown, rectFromCenter, rectContains, uiFillRect, uiStrokeRect, uiDrawTextCentered, uiTryConsumeClick, uiTryConsumeKeys, uiIsInputLocked } from './common.js';
 
 export class UIButton {
   constructor({ center, size = vec2(240, 56), label = 'Button', onClick, hotkeys = [] }) {
@@ -16,6 +16,7 @@ export class UIButton {
   get rect() { return rectFromCenter(this.center, this.size); }
 
   update() {
+    if (uiIsInputLocked()) return;
     const mouse = getMouseScreen();
     this.hover = rectContains(this.rect, mouse);
     const click = this.hover && uiTryConsumeClick(this.rect);
@@ -55,6 +56,7 @@ export class UICheckbox {
   get boxRect() { return rectFromCenter(this.center, this.size); }
 
   update() {
+    if (uiIsInputLocked()) return;
     const mouse = getMouseScreen();
     this.hover = rectContains(this.boxRect, mouse);
     if (this.hover && uiTryConsumeClick(this.boxRect)) {
@@ -95,6 +97,7 @@ export class UISelect {
   getInputPriority() { return this.open ? 100 : 0; }
 
   update() {
+    if (uiIsInputLocked()) return;
     const mouse = getMouseScreen();
     this.hover = rectContains(this.rect, mouse);
 
@@ -184,6 +187,7 @@ export class UISlider {
   get rect() { return rectFromCenter(this.center, vec2(this.width, this.height)); }
 
   update() {
+    if (uiIsInputLocked()) return;
     const mouse = getMouseScreen();
     if (!this.dragging) {
       // start drag on click in rect
