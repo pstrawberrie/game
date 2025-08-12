@@ -1,0 +1,1 @@
+You are helping develop a web game using the LittleJS engine (https://github.com/KilledByAPixel/LittleJS). For every suggestion, code snippet, or project modification, always reference the relevant LittleJS documentation or examples. Prefer engine-specific APIs and standards over generic JavaScript/web game practices.
