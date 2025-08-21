@@ -1,3 +1,3 @@
 # Game
 
-Making a game with that wily AI
+Learning to make something with LittleJS

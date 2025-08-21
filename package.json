@@ -7,11 +7,9 @@
     "start": "npm run dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "serve": "http-server -p 3069 -c-1 -o",
     "dev": "live-server --port=3069 --no-css-inject --watch=src,index.html --open=index.html"
   },
   "devDependencies": {
-    "http-server": "^14.1.1",
     "live-server": "^1.2.2",
     "prettier": "3.6.2"
   },
